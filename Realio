@@ -11,7 +11,7 @@ echo "==========================================================================
 
 sleep 2
 
-# DEGISKENLER by Nodeist
+
 RLO_WALLET=wallet
 RLO=realio-networkd
 RLO_ID=realionetwork_1110-1
@@ -52,10 +52,10 @@ if [ ! $RLO_NODENAME ]; then
 	echo 'export RLO_NODENAME='$RLO_NODENAME >> $HOME/.bash_profile
 fi
 
-echo -e "NODE ISMINIZ: \e[1m\e[32m$RLO_NODENAME\e[0m"
-echo -e "CUZDAN ISMINIZ: \e[1m\e[32m$RLO_WALLET\e[0m"
-echo -e "CHAIN ISMI: \e[1m\e[32m$RLO_ID\e[0m"
-echo -e "PORT NUMARANIZ: \e[1m\e[32m$RLO_PORT\e[0m"
+echo -e "Node Adiniz: \e[1m\e[32m$RLO_NODENAME\e[0m"
+echo -e "CUZDAN Adiniz: \e[1m\e[32m$RLO_WALLET\e[0m"
+echo -e "CHAIN Adi: \e[1m\e[32m$RLO_ID\e[0m"
+echo -e "PORT Nomresi: \e[1m\e[32m$RLO_PORT\e[0m"
 echo '================================================='
 
 sleep 2
@@ -67,11 +67,11 @@ sudo apt update && sudo apt upgrade -y
 
 
 # GEREKLI PAKETLER by Nodeist
-echo -e "\e[1m\e[32m2. GEREKLILIKLER YUKLENIYOR... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m2. LAZIM OLANLAR YUKLENIr... \e[0m" && sleep 1
 sudo apt install curl tar wget clang pkg-config libssl-dev jq build-essential bsdmainutils git make ncdu gcc git jq chrony liblz4-tool -y
 
 # GO KURULUMU by Nodeist
-echo -e "\e[1m\e[32m1. GO KURULUYOR... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m1. GO QURULUR... \e[0m" && sleep 1
 ver="1.18.2"
 cd $HOME
 wget "https://golang.org/dl/go$ver.linux-amd64.tar.gz"
@@ -84,8 +84,8 @@ go version
 
 sleep 1
 
-# KUTUPHANE KURULUMU by Nodeist
-echo -e "\e[1m\e[32m1. REPO YUKLENIYOR... \e[0m" && sleep 1
+# Kitabxana qurulumu
+echo -e "\e[1m\e[32m1. REPO QURULUR... \e[0m" && sleep 1
 cd $HOME
 git clone $RLO_REPO
 cd $RLO_FOLDER2
@@ -94,8 +94,8 @@ make install
 
 sleep 1
 
-# KONFIGURASYON by Nodeist
-echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIYOR... \e[0m" && sleep 1
+# KONFIGURASYON 
+echo -e "\e[1m\e[32m1. KONFIGURASYONLAR AYARLANIR... \e[0m" && sleep 1
 $RLO config chain-id $RLO_ID
 $RLO config keyring-backend file
 $RLO init $RLO_NODENAME --chain-id $RLO_ID
@@ -141,7 +141,7 @@ sed -i -e "s/^indexer *=.*/indexer = \"$indexer\"/" $HOME/$RLO_FOLDER/config/con
 # RESET by Nodeist
 $RLO tendermint unsafe-reset-all --home $HOME/$RLO_FOLDER
 
-echo -e "\e[1m\e[32m4. SERVIS BASLATILIYOR... \e[0m" && sleep 1
+echo -e "\e[1m\e[32m4. SERVIS BASLADILIR... \e[0m" && sleep 1
 # create service
 sudo tee /etc/systemd/system/$RLO.service > /dev/null <<EOF
 [Unit]
@@ -164,8 +164,8 @@ sudo systemctl daemon-reload
 sudo systemctl enable $RLO
 sudo systemctl restart $RLO
 
-echo '=============== KURULUM TAMAM! by Nodeist ==================='
-echo -e 'LOGLARI KONTROL ET: \e[1m\e[32mjournalctl -fu realio-networkd -o cat\e[0m'
-echo -e "SENKRONIZASYONU KONTROL ET: \e[1m\e[32mcurl -s localhost:${RLO_PORT}657/status | jq .result.sync_info\e[0m"
+echo '=============== ARTIQ BITDI! by WojaK ==================='
+echo -e 'LOGLARI YOXLAMAG UCUN: \e[1m\e[32mjournalctl -fu realio-networkd -o cat\e[0m'
+echo -e "SENKRONIZASYONU YOXLAMAG UCUN: \e[1m\e[32mcurl -s localhost:${RLO_PORT}657/status | jq .result.sync_info\e[0m"
 
 source $HOME/.bash_profile
