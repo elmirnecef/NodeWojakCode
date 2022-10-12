@@ -5,7 +5,7 @@ do
 
 # Logo1
 
-curl -s https://raw.githubusercontent.com/elmirnecef/NodeWojakCode/main/Logo1 | bash
+curl -s https://raw.githubusercontent.com/elmirnecef/NodeWojakCode/main/Logo2 | bash
 
 
 # Menu
